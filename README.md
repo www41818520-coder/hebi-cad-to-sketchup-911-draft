@@ -1,108 +1,107 @@
 <p align="center">
-  <img src="docs/images/hebi-logo.png" alt="何必 HEBI 标志" width="420">
+  <img src="docs/images/hebi-logo.png" alt="HEBI logo" width="420">
 </p>
 
-<h1 align="center">何必 HEBI · CAD to SketchUp 911</h1>
-<p align="center"><strong>让建筑图纸成为模型的依据，让每一步都有迹可查。</strong></p>
-<p align="center">Windows · SketchUp · 人工 / 可选 Agent 审核</p>
+<h1 align="center">HEBI · CAD to SketchUp 911</h1>
+<p align="center"><strong>Build from architectural evidence. Keep every decision traceable.</strong></p>
+<p align="center">Windows · SketchUp · Human or optional independent-agent review</p>
 
-> **待审阅草稿 · 尚未公开发布**
-> 本仓库用于作者审阅。911 版已完成脚本回归与打包检查，但尚未完成新版真实建模实测。
+> **Release 2026.09.11 · Experimental workflow**
+> Automated regression and packaging checks have passed. A new end-to-end modeling trial using the 911 release has not yet been completed.
 
-## 这是什么？
+## What is this?
 
-一套把建筑 CAD 平面、立面和剖面转化为 SketchUp 模型的 Skill。
-它不是独立建模软件，也不是“给任意图纸就自动交付”的黑盒：
-由可读写项目文件、执行脚本的主 Agent 调用，在读图、白模、细化和验收之间保留证据。
+A reusable Skill for turning architectural CAD plans, elevations and sections into controlled SketchUp models.
+It runs through a primary agent capable of reading project files and executing scripts.
+It is not standalone modeling software or a promise of one-click delivery from arbitrary drawings.
 
-**一个 Skill，两种审核方式。** 首次使用选择人工审核，或通过已有连接请另一 Agent 审核。
-没有额外 Agent 也能使用，不绑定模型、供应商或多 Agent 调度平台。
+**One Skill, two review paths.** Choose human review at intake, or use an existing connection to another agent.
+No additional agent subscription, specific model provider or multi-agent orchestration platform is required for the human path.
 
-## 原理：先读懂，再建模，最后对照
+## How it works
 
-![从图纸到模型的证据链与可选审核](docs/images/workflow.svg)
+![Drawing-led modeling and review workflow](docs/images/workflow.svg)
 
-1. **读图**：保留完整图框、标注与嵌套块，检查清晰度和内容覆盖。
-2. **对齐**：统一轴线、方向与标高，核对平、立、剖之间的对应关系。
-3. **白模**：先验证轮廓、楼层、屋顶和门窗洞口，再进入细化。
-4. **细化**：为重复构件复用组件定义，补充门窗分格及简单材质。
-5. **对照**：把实际模型按同方向、同比例导出，与独立图纸证据比较。
+1. **Read** complete drawing frames, annotations and nested blocks; check readability and coverage.
+2. **Register** axes, orientations and level datums across plans, elevations and sections.
+3. **Build a white model** to validate the envelope, levels, roofs and actual openings before detailing.
+4. **Detail** reusable components, opening subdivisions and simple materials.
+5. **Compare** exports of the actual SKP against independent drawing evidence at matching orientation and scale.
 
-发现错误时回到最早出错的依据或模型约束修正，而不是只把最终模型“补得像”。
-文件哈希用于识别证据是否改变，不能代替建筑判断。
+When a mismatch appears, repair the earliest incorrect source interpretation or model constraint, not just its visible symptom.
+File hashes detect changes to evidence; they do not replace architectural judgment.
 
-## 过程留存
+## Development snapshots
 
-**以下为同一项目在此前开发过程中的真实模型截图，并非 911 版自动生成的新测试。**
-室内结构补充和立面设计包含人工确认及项目专用脚本，不能据此承诺通用 Skill 一键复现。
+**These are real screenshots from an earlier project, not a fresh automated test of the 911 release.**
+The interior additions and facade design involved user decisions and project-specific scripts.
+They illustrate the development process, not guaranteed one-click reproduction by the generic Skill.
 
-### 01 / 先确定白模与真实洞口
+### 01 / Validate the white model and openings
 
-![白模阶段：建筑体量、门窗洞口、雨棚与入口](docs/images/01-white-model.jpg)
+![White model with openings, canopies and entrances](docs/images/01-white-model.jpg)
 
-先检查主体轮廓、洞口位置和雨棚、入口等构件，避免装饰细节掩盖基础几何问题。
-此时门窗精细构造与材质尚未完成；图中的屋面采光带不能仅凭外观视为已验证的真实穿孔。
+Check the building envelope, opening positions, canopies and entrances before fine details obscure basic geometry errors.
+Window detailing and material work were not complete at this stage. The visible rooflight strips alone are not proof of verified through-openings.
 
-### 02 / 组件与室内结构补充
+### 02 / Components and interior framing
 
-![室内阶段：柱、梁、檩条与门窗分格](docs/images/02-interior.jpg)
+![Interior framing, columns, purlins and window subdivisions](docs/images/02-interior.jpg)
 
-沿既有柱位补充屋顶构件，并对相同构件复用组件。参考图与用户允许的估计只用于
-示意建模，构件截面与连接形式未经结构计算，不能作为施工设计依据。
+Roof members were added around existing column positions, with shared definitions for repeated components.
+Reference images and user-authorized estimates supported illustrative modeling only.
+Member sizes and connections were not structurally engineered and must not be used as construction design.
 
-### 03 / 保留洞口的立面设计探索
+### 03 / Facade exploration without moving openings
 
-![立面阶段：保留门窗位置，增加银白色外包铝板效果](docs/images/03-facade.jpg)
+![Silver-white cladding and dark horizontal bands around existing openings](docs/images/03-facade.jpg)
 
-在既有门窗洞口不变的条件下尝试银白色外包铝板和深色横向分带。
-这是用户追加的方案设计任务，不是从 CAD 自动推导出的原始建筑材质。
+This design study retained the existing openings while exploring silver-white aluminum cladding and dark horizontal bands.
+It was an additional user-requested design task, not an original finish automatically inferred from the CAD.
 
-## 911 版做了哪些取舍？
+## What changed in 911?
 
-| 保留 | 精简或改为可选 |
+| Retained | Simplified or optional |
 | --- | --- |
-| 完整读图、坐标对齐、实际模型对照 | 不绑定特定模型或协调平台 |
-| 真实洞口、重复构件组件化、简单材质 | 不携带其他建模软件和下载脚本 |
-| 版本保存、证据变化检查、审核回执 | 不打包个人日志、凭证、历史工程 |
-| 人工或独立 Agent 的实际反馈 | 不要求用户编辑 JSON 或输入切换命令 |
+| Complete reading, coordinate registration and actual-model comparison | No fixed model provider or coordinator |
+| Real openings, reusable components and simple materials | No unrelated modeling applications or download scripts |
+| Versioned saves, evidence checks and review receipts | No personal logs, credentials or historical project files in the Skill package |
+| Actual human or independent-agent responses | No requirement for users to edit JSON or type mode-switch commands |
 
-只复查受修改影响的内容，复用仍然有效的中间成果。普通模型调整不再强制触发 Skill 升级。
+Reuse valid intermediate artifacts and recheck affected dependencies instead of repeating the entire workflow.
+Routine model adjustments no longer automatically trigger Skill maintenance.
 
-## 如何使用？
+## Install and start
 
-**环境**：Windows、可运行脚本的主 Agent、Python 依赖，以及支持所需实体运算的 SketchUp。
-当前白模墙体合并路径需要 SketchUp Pro 的实体并集能力。
-DWG 必须通过可用且获准的转换方式得到匹配 DXF；PDF/图片仅作为辅助证据。
+**Requirements:** Windows, a script-capable primary agent, the Python dependencies in the Skill, and SketchUp with the required solid operations.
+The current white-wall merging path requires SketchUp Pro solid union support.
+DWG input needs a matching DXF obtained through an available, authorized converter or a user export.
+PDFs and images are supporting evidence, not replacements for CAD geometry.
 
-可下载 [911 技能包](dist/cad-to-sketchup-model-2026-09-11.zip)，或使用
-[完整 Skill 目录](skills/cad-to-sketchup-model-2026-09-11/)。
-包内顶层文件夹即 Skill，安装到主 Agent 支持的 skills 目录，不要只提取 `SKILL.md`。
-依赖和具体执行要求见 [技能入口](skills/cad-to-sketchup-model-2026-09-11/SKILL.md)。
+Download the [911 Skill package](dist/cad-to-sketchup-model-2026-09-11.zip), or use the
+[complete Skill folder](skills/cad-to-sketchup-model-2026-09-11/).
+Install the entire `cad-to-sketchup-model-2026-09-11` folder into your agent's skills directory, not only `SKILL.md`.
+For Codex, the default location is `~/.codex/skills/`.
+See the [Skill entrypoint](skills/cad-to-sketchup-model-2026-09-11/SKILL.md) for execution requirements.
 
-安装后可以这样说：
+Then ask:
 
-> 用 CAD to SketchUp 911，依据这个文件夹建模。
+> Use CAD to SketchUp 911 to build a model from the drawings in this folder.
 
-首次选择审核方式，项目内保留该选择；后续直接说“切换人工审核”或“切换其他 Agent 审核”。
-选择其他 Agent 并不自动安装软件或开通账号，需要用户已有可用连接，并验证其读图能力。
+Choose a review path once per project. Later, say “switch to human review” or “switch to another agent for review.”
+Choosing another agent does not install software or create an account; an existing usable connection and image-reading capability are required.
 
-人工模式下，用户查看可读的图纸和模型对照后自然语言反馈；主 Agent 负责记录。
-读图审核在建模前完成；拓扑审核与批准、最终审核与验收分别合并展示。
+In human mode, the user inspects readable drawing/model comparisons and responds in natural language; the primary agent records the response.
+Drawing review takes place before modeling. Topology review and approval are presented together, as are final review and acceptance.
+The implementation documentation retains some Chinese interaction examples and references; the workflow can be requested in English.
 
-## 验证与限制
+## Validation and limitations
 
-- 911 打包时通过 **69 项自动测试**，并在独立解压目录重跑通过。
-- 另完成命令入口、审核选择、任意 CAD 文件名等 **8 项运行检查**。
-- Skill 结构、Python/JSON 解析、文档链接与 PowerShell 语法已检查。
-- 以上包含合成测试夹具，不等于真实建筑模型验收，也不证明外部 Agent 的视觉判断可靠。
-- 缺少必需图纸证据或校验失败时，只能提供说明限制的候选成果，不能宣称完整验证交付。
-- 尚不支持本次承诺范围之外的 Mac 工作流；不提供结构、施工或加工认证。
+- **69 automated tests** passed during 911 packaging and again from an isolated extracted directory.
+- **8 execution checks** covered the suite, command entrypoints, review selection and arbitrary CAD filenames.
+- Skill structure, Python/JSON parsing, documentation links and PowerShell syntax were checked.
+- Synthetic fixtures are not real-building acceptance and do not establish another agent's visual reliability.
+- Missing required evidence or failed checks restrict the output to a clearly labeled candidate, not verified delivery.
+- This release does not promise a macOS workflow or structural, construction or fabrication certification.
 
-## 作者审阅项
-
-- [ ] Logo、名称、文案与案例说明合适。
-- [ ] 过程图片允许公开，未包含不应公开的项目内容。
-- [ ] 下一轮真实 CAD / SketchUp 测试范围已确定。
-- [ ] 对外许可方式与正式发布名称已确认。
-
-**在作者明确批准前，保持私有与 Draft，不发布公开 Release，不改变仓库可见性。**
+The original HEBI branding and development images are retained. License: not yet specified.
