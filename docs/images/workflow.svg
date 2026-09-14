@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+<title id="title">HEBI CAD to SketchUp 原理图</title>
+<desc id="desc">CAD读图、跨图对齐、拓扑白模、组件材质、实际模型对照。人工或其他Agent提供审核，错误回到源头修正。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#50d7e6"/></marker></defs>
+<rect width="1200" height="560" rx="24" fill="#081724"/>
+<g font-family="Microsoft YaHei, sans-serif">
+<text x="48" y="62" fill="#c8ff00" font-size="18" font-weight="bold">HEBI / CAD TO SKETCHUP 911</text>
+<text x="48" y="106" fill="#ffffff" font-size="30" font-weight="bold">依据可追溯 · 审核可选择 · 错误回源头</text>
+<g fill="#112d3b" stroke="#50d7e6" stroke-width="1.5">
+<rect x="45" y="154" width="195" height="119" rx="12"/><rect x="275" y="154" width="195" height="119" rx="12"/>
+<rect x="505" y="154" width="195" height="119" rx="12"/><rect x="735" y="154" width="195" height="119" rx="12"/>
+<rect x="965" y="154" width="190" height="119" rx="12"/></g>
+<g fill="#fff" font-size="24" font-weight="bold" text-anchor="middle">
+<text x="142" y="197">01 读图</text><text x="372" y="197">02 对齐</text><text x="602" y="197">03 白模</text><text x="832" y="197">04 细化</text><text x="1060" y="197">05 对照</text></g>
+<g fill="#b8d0db" font-size="16" text-anchor="middle">
+<text x="142" y="237">图框 / 标注 / 覆盖</text><text x="372" y="237">轴线 / 方向 / 标高</text><text x="602" y="237">轮廓 / 屋顶 / 洞口</text><text x="832" y="237">组件 / 分格 / 材质</text><text x="1060" y="237">实际 SKP / 同视图</text></g>
+<g stroke="#50d7e6" stroke-width="2" fill="none" marker-end="url(#arrow)">
+<path d="M243 214H267"/><path d="M473 214H497"/><path d="M703 214H727"/><path d="M933 214H957"/>
+<path d="M1060 280V313H142V280"/></g>
+<rect x="409" y="294" width="390" height="37" rx="10" fill="#081724"/>
+<text x="604" y="319" text-anchor="middle" fill="#50d7e6" font-size="18">发现不一致 → 修正最早出错的依据</text>
+<rect x="45" y="360" width="1110" height="111" rx="14" fill="#17303a"/>
+<text x="72" y="399" fill="#c8ff00" font-size="22" font-weight="bold">审核方式：人工 或 已有其他 Agent</text>
+<text x="72" y="434" fill="#fff" font-size="18">同一套证据与检查项 → 保留实际回复 → 校验通过后申请验收</text>
+<text x="48" y="516" fill="#9ab3c2" font-size="17">哈希用于检测证据变更；不代替建筑判断。机器失败不能由人工批准直接豁免。</text>
+</g></svg>

@@ -1,0 +1,7 @@
+interface:
+  display_name: "HEBI CAD-to-SketchUp 911"
+  short_description: "建筑CAD转SketchUp：组件与材质建模，可选人工或其他Agent审核"
+  default_prompt: "Use $cad-to-sketchup-model-2026-09-11 to build my CAD into SketchUp; first let me choose human review or an available independent agent."
+  icon_small: "./assets/cad-modeling-mascot-v1.png"
+  icon_large: "./assets/cad-modeling-mascot-v1.png"
+  brand_color: "#C8FF00"
